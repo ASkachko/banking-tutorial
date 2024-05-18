@@ -5,8 +5,8 @@ export default function RootLayout({
 }>) {
   return (
     <main>
-        {children}
       SIDEBAR
-</main>
+      {children}
+    </main>
   );
 }
