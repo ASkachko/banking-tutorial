@@ -12,7 +12,7 @@ function AnimatedCounter({ amount }: { amount: number }) {
         decimals={2}
         prefix="$"
         end={amount}
-      />{" "}
+      />
     </div>
   );
 }
