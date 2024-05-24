@@ -84,10 +84,11 @@ function MobileNav({ user }: MobileNavProps) {
                       </SheetClose>
                     );
                   })}
+
+                  {/*USER*/}
                 </nav>
               </SheetClose>
             </div>
-            {/*USER*/}
           </nav>
         </SheetContent>
       </Sheet>
