@@ -1,7 +1,13 @@
 import React from "react";
 
-function Footer() {
-  return <div>Footer</div>;
+function Footer({ user }: FooterProps) {
+  return (
+    <footer className="footer">
+      <div className="footer_name">
+        <p>{user.firstName[0]}</p>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;
