@@ -23,6 +23,7 @@ import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/actions/user.actions";
+import PlaidLink from "@/components/PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
@@ -52,13 +53,13 @@ const AuthForm = ({ type }: { type: string }) => {
 
       if (type === "sign-in") {
         const response = await signIn({
-         email: data.email,
+          email: data.email,
           password: data.password,
-         });
-         if (response) {
-         router.push("/");
-        //naviagte to dashboard
-         }
+        });
+        if (response) {
+          router.push("/");
+          //naviagte to dashboard
+        }
       }
     } catch (error) {
       console.log("Error:", error);
@@ -92,9 +93,11 @@ const AuthForm = ({ type }: { type: string }) => {
           </p>
         </div>
       </header>
-      {user ? (
-        <div className="flex flex-col gap-4">{/* Plaid */}</div>
-      ) : (
+      {/* {user ? ( */}
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
+        {/* ) : ( */}
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -217,7 +220,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </Link>
           </footer>
         </>
-      )}
+      {/* )} */}
     </section>
   );
 };
