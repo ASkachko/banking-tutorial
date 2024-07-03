@@ -1,6 +1,6 @@
 "use server";
 
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../server/appwrite";
 import { cookies } from "next/headers";
 import {
@@ -218,5 +218,39 @@ export const exchangePublicToken = async ({
     });
   } catch (error) {
     console.error("An error occured while creating exchanging token: ", error);
+  }
+};
+
+export const getBanks = async ({ userId }: getBanksProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+const banks = await database.listDocuments(
+      DATABASE_ID!,
+      BANK_COLLECTION_ID!,
+      [Query.equal('userId', userId)],
+    )
+
+    return parseStringify(banks.documents);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+export const getBank = async ({ documentId }: getBanksProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+const bank = await database.listDocuments(
+      DATABASE_ID!,
+      BANK_COLLECTION_ID!,
+      [Query.equal('$id', [documentId])],
+    )
+
+    return parseStringify(bank.documents[0]);
+  } catch (error) {
+    console.log(error);
   }
 };

@@ -3,9 +3,22 @@ import HeaderBox from "@/components/HeaderBox";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import RightSidebar from "@/components/RightSidebar";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
+import { getAccounts } from "@/lib/actions/bank.actions";
 
-async function Home() {
+async function Home({ searchParams: {id, page}}:SearchParamProps) {
   const loggedIn = await getLoggedInUser();
+  const accounts = await getAccounts({userId: loggedIn.$id})
+
+if(!accounts) return
+
+const accountsData = accounts?.data;
+
+  const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
+
+
+  const account = await getAccount({appwriteItemId})
+
+
   return (
     <section className="home">
       <div className="home-content">
@@ -17,8 +30,8 @@ async function Home() {
             subtext="Access and manage your account and transactions efficiently."
           />
           <TotalBalanceBox
-            accounts={[]}
-            totalBanks={1}
+            accounts={[accountsData]}
+            totalBanks={accounts?.totalBanks}
             totalCurrentBalance={1250.35}
           />
         </header>
